@@ -15,7 +15,7 @@ class Parcela {
 		return ancho * largo
 	}
 
-	method cantidadMaximaDePLantasQueTolera() {
+	method cantidadMaximaDePlantasQueTolera() {
 		if (ancho > largo) {
 			return self.superficieDeLaParcela() / 5
 		} else {
@@ -36,26 +36,31 @@ class Parcela {
 	}
 
 	method superaLaCantidadDeLaParcela() {
-		return self.cantidadMaximaDePLantasQueTolera() <= self.cantidadDePlantasQueTieneLaParcela()
+		return self.cantidadMaximaDePlantasQueTolera() <= self.cantidadDePlantasQueTieneLaParcela()
 	}
 
-	method plantarUnaPlanta(planta) {
+	method plantar(planta) {
 		if (not self.superaLaCantidadDeLaParcela() and self.parcelaRecibeMasHorasDeSolQueLaPlanta(planta)) {
 			plantas.add(planta)
 		} else {
-			self.error("No se puede plantar en esta Parcela")
+			self.error("Casapacidad completa, No se puede plantar en esta Parcela")
 		}
 	}
-	
-	method esEcologica(planta){
-		return not self.tieneComplicaciones() and planta.esUnaParcelaIdeal(self) 
-	}
-	
-	method esIdustrial(planta){
-		return self.cantidadDePlantasQueTieneLaParcela() >= 2 and planta.esFuerte() 
+
+}
+
+class ParcelaEcologica inherits Parcela {
+
+	method seAsociaBien(planta) {
+		return not self.tieneComplicaciones() and planta.esUnaParcelaIdeal(self)
 	}
 
-}	
-	
-	
+}
 
+class ParcelaIndustrial inherits Parcela {
+
+	method seAsociaBien(planta) {
+		return self.cantidadDePlantasQueTieneLaParcela() >= 2 and planta.esFuerte()
+	}
+
+}

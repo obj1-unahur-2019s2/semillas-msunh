@@ -1,10 +1,59 @@
 import semillas.*
-
+import parcelas.*
 
 test "MENTA" {
 	
-	
+	var menta1 = new Menta(altura=1)
+	assert.equals(3,menta1.espacioQueOcupa())
+	assert.that(menta1.daNuevasSemillas())
 
-	assert.that(true)
+	var menta2 = new Menta(altura=0.3)
+    assert.equals(0.9, menta2.espacioQueOcupa())
+	assert.notThat(menta2.daNuevasSemillas())
 
 }
+
+test "SOJA"{
+	
+	var soja1 = new Soja(altura=0.6, anioDeObtencion=2009)
+	assert.equals(7, soja1.horasDeSolQueTolera() )
+	assert.notThat(soja1.daNuevasSemillas())
+	assert.equals(0.3, soja1.espacioQueOcupa())
+	}
+	
+test "QUINOA"{
+	
+	var quinoa1 = new Quinoa(horasDeSolQueTolera=12, anioDeObtencion=2010)
+	assert.that(quinoa1.daNuevasSemillas())	
+	
+	var quinoa2 = new Quinoa(horasDeSolQueTolera=9, anioDeObtencion=2001)
+	assert.that(quinoa2.daNuevasSemillas())	
+	
+	
+	
+	 
+	
+}
+
+test "quinoa parcela ideal" {
+	var parcela2 = new Parcela(ancho = 20, largo = 1, horasDeSolQueRecibePorDia = 8)
+	parcela2.agregarPlanta(new Menta(altura = 1))
+	parcela2.agregarPlanta(new Soja(anioDeObtencion = 2004, altura = 2))
+	var quinoa = new Quinoa()
+	assert.notThat(quinoa.esUnaParcelaIdeal(parcela2))
+	var parcela3 = new Parcela(ancho = 20, largo = 1, horasDeSolQueRecibePorDia = 8)
+	parcela3.agregarPlanta(new Menta(altura = 1))
+	
+	
+	parcela3.agregarPlanta(new Menta(altura = 1.2))
+	assert.that(quinoa.esUnaParcelaIdeal(parcela3))
+	
+	parcela3.agregarPlanta(new Menta(altura = 1.5))
+	assert.that(quinoa.esUnaParcelaIdeal(parcela3))
+	
+	parcela3.agregarPlanta(new Menta(altura = 1.6))
+	assert.notThat(quinoa.esUnaParcelaIdeal(parcela3))
+}
+
+	
+	

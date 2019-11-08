@@ -95,7 +95,7 @@ class SojaTransgenica inherits Soja {
 		return false
 	}
 	
-	override method esUnaParcelaIdeal(parcela){
+	override method esUnaParcelaIdeal(parcela){ //consultar
 		return parcela.cantidadMaximaDePLantasQueTolera() == 1
 	}
 
@@ -120,6 +120,13 @@ class Quinoa inherits Planta {
 	override method esUnaParcelaIdeal(parcela){
 		return not parcela.plantas().any({ planta => planta.altura() > 1.5 })
 	}
+	
+	//otro
+	//override method esUnaParcelaIdeal(parcela){
+	// return parcela.plantas().all({ planta => planta.altura < 1.5 )}
+	//
+	//}
+	
 	
 	
 
